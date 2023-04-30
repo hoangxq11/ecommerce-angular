@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-account',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar-account.component.scss']
 })
 export class SidebarAccountComponent {
+
+  @Input() activeTag = '';
 
 }

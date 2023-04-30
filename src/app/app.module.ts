@@ -56,7 +56,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule,
     NgbModule,
     NgxPaginationModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right'
+    }),
     BrowserAnimationsModule
   ],
   providers: [],

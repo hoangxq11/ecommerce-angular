@@ -275,12 +275,12 @@
                                 <span class="fa fa-star text-secondary small"></span>
                             </div>
                             <span
-                                class="badge badge-pill badge-danger pt-2 pb-2 pl-3 pr-3 mr-1">{{(product.price-product.discount.value).toLocaleString().replace(",",
+                                class="badge badge-pill badge-danger pt-2 pb-2 pl-3 pr-3 mr-1">{{(product.price-product.discount.value).toLocaleString().replaceAll(",",
                                 ".")}} <u>đ</u></span>
                             <span
                                 class="badge badge-pill badge-warning p-2 mr-1">-{{(100*product.discount.value/product.price)
                                 | number : '1.0-0'}}%</span>
-                            <s class="small" style="color: #8a8a8a;">{{product.price.toLocaleString().replace(",",
+                            <s class="small" style="color: #8a8a8a;">{{product.price.toLocaleString().replaceAll(",",
                                 ".")}} <u>đ</u></s>
 
                 </div>

@@ -1,30 +1,32 @@
 <div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8 mt-4">
     <div class="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
-        <app-sidebar-account></app-sidebar-account>
+        <app-sidebar-account [activeTag]="'order'"></app-sidebar-account>
         <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV snipcss-AcVpU">
             <div class="styles__StyledListOrderPage-sc-e27b7w-0 hmhcMC">
                 <div class="heading">
                     Đơn hàng của tôi
                 </div>
                 <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 kJvPK">
+                    <a (click)="allOrder()" [ngClass]="orderStatus == 'ALL' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
                         Tất cả đơn
-                    </div>
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 czMhB">
-                        Chờ thanh toán
-                    </div>
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 czMhB">
+                    </a>
+                    <a (click)="pendingOrder()" [ngClass]="orderStatus == 'PENDING' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
                         Đang xử lý
-                    </div>
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 czMhB">
+                    </a>
+                    <a (click)="shippingOrder()" [ngClass]="orderStatus == 'SHIPPING' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
                         Đang vận chuyển
-                    </div>
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 czMhB">
+                    </a>
+                    <a (click)="doneOrder()" [ngClass]="orderStatus == 'DONE' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
                         Đã giao
-                    </div>
-                    <div width="16.666666666666668%" class="styles__Tab-sc-e27b7w-3 czMhB">
+                    </a>
+                    <a (click)="canceledOrder()" [ngClass]="orderStatus == 'CANCELED' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
                         Đã huỷ
-                    </div>
+                    </a>
                 </div>
                 <div class="styles__StyledInput-sc-e27b7w-4 dJmBHv">
                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" color="#808089"
@@ -46,35 +48,43 @@
                             <div data-index="0" id="style-c7ff2" class="style-c7ff2">
                                 <div>
                                     <div class="infinite-scroll-component  style-kMYFm" id="style-kMYFm">
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
+                                        <div *ngFor="let bill of billListData"
+                                            class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
+                                            <div [ngClass]="bill.status == 'CANCELED' ? 'eUsvUb' : 'hBsvqt'"
+                                                color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1">
                                                 <span class="main-status">
-                                                    Đã hủy
+                                                    {{bill.status == 'DONE' ? 'Giao hàng thành công' :
+                                                    bill.status == 'SHIPPING' ? 'Đang vận chuyển' :
+                                                    bill.status == 'CANCELED' ? 'Đã hủy' : 'Đang xử lý'}}
                                                 </span>
                                             </div>
                                             <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
                                                 <div>
-                                                    <div class="product">
+                                                    <div *ngFor="let productBill of bill.productBills" class="product">
                                                         <div class="detail">
-                                                            <div class="product-img style-q8Dd3" id="style-q8Dd3">
+                                                            <div [style.backgroundImage]="'url(' + productBill.productDetail.productDto.images[0].imageUrl + ')'"
+                                                                class="product-img style-q8Dd3" id="style-q8Dd3">
                                                                 <span class="quantity">
-                                                                    x1
+                                                                    x{{productBill.quantity}}
                                                                 </span>
                                                             </div>
                                                             <div class="product-info">
                                                                 <p class="product-name">
-                                                                    Xà Phòng Cám Gạo Xà Phòng Trắng Da Thái Lan
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        NAVENDA
-                                                                    </span>
-                                                                </div>
+                                                                    {{productBill.productDetail.productDto.name.length
+                                                                    <= 130 ? productBill.productDetail.productDto.name :
+                                                                        productBill.productDetail.productDto.name.substring(0,
+                                                                        130) + " ..." }} </p>
+                                                                        <div class="store">
+                                                                            <span>
+                                                                                FASHION
+                                                                            </span>
+                                                                        </div>
                                                             </div>
                                                         </div>
                                                         <div class="price">
                                                             <span>
-                                                                12.870 ₫
+                                                                {{(productBill.productDetail.price-productBill.productDetail.discount.value).toLocaleString().replaceAll(",",
+                                                                ".")}} ₫
                                                             </span>
                                                         </div>
                                                     </div>
@@ -86,7 +96,8 @@
                                                         Tổng tiền:
                                                     </div>
                                                     <div class="total">
-                                                        34.870 ₫
+                                                        {{bill.totalAmount.toLocaleString().replaceAll(",",
+                                                        ".")}} ₫
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
@@ -99,7 +110,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
+                                        <!-- <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
                                             <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
                                                 <span class="main-status">
                                                     Giao hàng thành công
@@ -152,593 +163,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-ZJNGb" id="style-ZJNGb">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Toner Trị Mụn 30 Ngày AHA - BHA - PHA 30 Day Miracle
-                                                                    Toner 150ml Tặng Kèm Máy Massage Mặt Ion Thẩm Thấu
-                                                                    Kem Dưỡng
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        Mỹ Phẩm Coco's Beauty
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                249.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        263.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-HnSX8" id="style-HnSX8">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Áo Bra Ren Không Dây Hoa Đào Cực Xinh - Đen
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        duong truc
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                36.888 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        58.888 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-phFcS" id="style-phFcS">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Áo bra dây vải đúc su cao cấp kèm mút độn ngực - ĐEN
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        DTLfashion
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                39.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        61.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-7NyZR" id="style-7NyZR">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Máy xay sinh tố cầm tay tiện dụng - Xanh
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        ShinShop
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                239.999 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        261.999 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-6g6ek" id="style-6g6ek">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Bông tai ngọc trai zic zắc xinh xắn - Bạc
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        SUNFLOWER
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                26.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        48.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-Bhss8" id="style-Bhss8">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Túi Đeo Chéo Tai Thỏ Mini Cute Dễ Thương - Đen
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        Thời Trang và Đồ Dùng Gia Đình
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                20.487 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        42.487 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-aFMWF" id="style-aFMWF">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Khuyên tai bông tai kẹp ngôi sao không cần xỏ lỗ tai
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        SUNFLOWER
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                42.750 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        64.750 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-QHXOH" id="style-QHXOH">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Túi nữ đeo chéo mini DYC trẻ trung năng động thanh
-                                                                    lịch phong cách Hàn quốc - đen
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        Giày Da Việt Nam
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                67.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        111.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-9WPiP" id="style-9WPiP">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Khuyên Tai Dáng Dài Đính Ngọc Trai Nhân Tạo
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        Trang sức Cô Tấm
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                54.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        76.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-ozGp9" id="style-ozGp9">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    quần baggy jean nữ cạp cao - S
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        sporty chic
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                159.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        176.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 eUsvUb">
-                                                <span class="main-status">
-                                                    Đã hủy
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-fSJWE" id="style-fSJWE">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Bông tai ngọc trai zic zắc xinh xắn - Bạc
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        SUNFLOWER
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                26.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        46.700 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
