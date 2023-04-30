@@ -1,9 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountRegister } from 'src/app/commons/response/account';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,9 @@ export class RegisterComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private authService: AuthService,
     private accountService: AccountService,
-    private router: Router) { }
+    private router: Router,
+    public toastr: ToastrService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.staticAlertClosed = true;
@@ -30,8 +34,15 @@ export class RegisterComponent implements OnInit {
     this.accountRegister.authorities = ['ROLE_CUSTOMER']
     this.accountService.register(this.accountRegister).subscribe(data => {
       console.log(data);
+      this.toastr.success('Đăng ký thành công');
+      this.activeModal.close();
+      const modalRef = this.modalService.open(LoginComponent, {
+        backdrop: false,
+        size: 'lg'
+      });
     }, error => {
       console.log(error);
+      this.toastr.error('Tên đăng nhập hoặc email đã tồn tại');
     })
   }
 

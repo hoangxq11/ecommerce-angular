@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddressData, AddressReq, District, Province, Ward } from 'src/app/commons/response/address';
@@ -27,7 +28,8 @@ export class ShippingComponent implements OnInit {
 
   constructor(
     private addressService: AddressService,
-    private router: Router
+    private router: Router,
+    public toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -96,10 +98,13 @@ export class ShippingComponent implements OnInit {
     this.addressReq.defaultAddress = true;
     this.addressService.updateAddress(addressId, this.addressReq).subscribe(data => {
       console.log(data);
+      this.toastrService.success('Cập nhật địa chỉ thành công', '', {
+        timeOut: 1500
+      });
+      this.router.navigate(['/payment']);
     }, error => {
       console.log(error);
     })
-    this.router.navigate(['/payment']);
   }
 
   checkValidatedValue() {

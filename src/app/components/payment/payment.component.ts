@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddressData } from 'src/app/commons/response/address';
@@ -28,7 +29,9 @@ export class PaymentComponent implements OnInit {
     private router: Router,
     private cartService: CartService,
     private addressService: AddressService,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    public toastrService: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getProductInCart();
@@ -83,7 +86,10 @@ export class PaymentComponent implements OnInit {
 
     this.orderService.createBill(this.billReq).subscribe(data => {
       console.log(data);
+      this.toastrService.success('Đặt hàng thành công');
+      this.router.navigate(['/order']);
     }, error => {
+      this.toastrService.error('Có lỗi xảy ra vui lòng thử lại sau');
       console.log(error);
     })
   }

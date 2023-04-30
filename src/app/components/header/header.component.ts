@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
@@ -16,7 +17,12 @@ export class HeaderComponent implements OnInit {
 
   categoryRes!: CategoryListRes;
 
-  constructor(public authService: AuthService, private modalService: NgbModal, private categoryService: CategoryService, public router: Router) { }
+  constructor(
+    public authService: AuthService,
+    private modalService: NgbModal,
+    private categoryService: CategoryService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getDataCategory();
@@ -45,7 +51,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onLogout(){
+  onLogout() {
     sessionStorage.removeItem("jwtToken");
     this.router.navigate(['/']);
   }

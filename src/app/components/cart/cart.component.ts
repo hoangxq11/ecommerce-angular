@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListProductCartRes, ProductCartData, ProductCartUpdateReq } from 'src/app/commons/response/cart';
@@ -16,7 +17,11 @@ export class CartComponent implements OnInit {
   discount: number = 0;
   totalAmount: number = 0;
 
-  constructor(private router: Router, private cartService: CartService) { }
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    public toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getProductInCart();
@@ -50,7 +55,7 @@ export class CartComponent implements OnInit {
       }, error => {
         console.log(error);
       })
-    }
+    } else this.onRemove(productDetailId);
   }
 
   incrementValue(productDetailId: number) {
@@ -135,6 +140,18 @@ export class CartComponent implements OnInit {
       this.totalAmount += e.productDetailDto.price * e.quantity;
     })
   }
+
+  onRemove(productDetailId: number) {
+    if (confirm('Bạn muốn xóa sản phẩm này khỏi giỏ hàng ?')){
+      this.cartService.removeProductCart(productDetailId).subscribe(data => {
+        this.toastr.success('Xóa thành công');
+        this.getProductInCart();
+      }, error => {
+        this.toastr.error('Có lõi xảy ra, vui lòng thử lại sau');
+        console.log(error);
+      })
+    }
+  } 
 
   convertToSlug(text: string) {
     return text.toLowerCase()

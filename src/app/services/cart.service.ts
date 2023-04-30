@@ -44,4 +44,12 @@ export class CartService {
         });
     }
 
+    removeProductCart(productDetailId: number): Observable<BaseResponse> {
+        return this.httpClient.delete<BaseResponse>(`${this.baseURL}/${productDetailId}`, {
+            headers: new HttpHeaders({
+                'Authorization': `Bearer ${this.authService.getToken()}`
+            })
+        });
+    }
+
 }

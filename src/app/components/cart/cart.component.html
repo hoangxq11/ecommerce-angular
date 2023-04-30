@@ -26,10 +26,10 @@
                                 <p>Kích cỡ: {{productCart.productDetailDto.size != null ?
                                     productCart.productDetailDto.size.name : 'None'}}
                                 </p>
-                                <a class="mr-4" href="">Xóa</a>
-                                <a
+                                <button class="mr-4" (click)="onRemove(productCart.productDetailDto.id)">Xóa</button>
+                                <button
                                     [routerLink]="['/product-detail', convertToSlug(productCart.productDetailDto.productDto.name)+'-p'+productCart.productDetailDto.productDto.id]">Xem
-                                    chi tiết sản phẩm</a>
+                                    chi tiết sản phẩm</button>
                     </div>
 
                     <div class="input-group col-md-2" style="height:31px">

@@ -24,6 +24,8 @@ import { OrderComponent } from './components/order/order.component';
 import { AddressComponent } from './components/address/address.component';
 import { AddressUpdateComponent } from './components/address-update/address-update.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { ShippingComponent } from './components/shipping/shipping.component';
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

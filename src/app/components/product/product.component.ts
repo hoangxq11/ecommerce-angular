@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { LoginComponent } from '../login/login.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -30,7 +31,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     public authService: AuthService,
     private modalService: NgbModal,
-    private cartService: CartService
+    private cartService: CartService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -76,8 +78,11 @@ export class ProductComponent implements OnInit {
     this.cartService.addToCart(cartReq).subscribe(data => {
       console.log(data);
     }, error => {
+      this.toastr.error('Có lỗi xảy ra xin vui lòng thử lại sau')
       console.log(error);
     })
+    
+    this.toastr.success('Đã thêm vào giỏ hàng')
   }
 
   onChangeColor(colorId: number) {

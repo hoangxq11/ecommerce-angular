@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { AccountLogin } from 'src/app/commons/account-login';
 import { JwtResponse } from 'src/app/commons/response/jwt-response';
 import { AccountService } from 'src/app/services/account.service';
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private accountService: AccountService,
     private router: Router,
-    // private notifierService: Notifier
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -36,10 +37,15 @@ export class LoginComponent implements OnInit {
         console.log(data)
         this.jwtResponse = data;
         sessionStorage.setItem("jwtToken", JSON.stringify(this.jwtResponse.data));
-        console.log("success", "Đăng nhập thành công!!");
-        setTimeout(() => location.reload(), 800);
+        this.activeModal.close();
+        this.toastr.success('Đăng nhập thành công', '', {
+          timeOut: 3000,
+        });
       },
       (error) => {
+        this.toastr.error('Tên đăng nhập hoặc mật khẩu không chính xác', '', {
+          timeOut: 3000,
+        });
         this.error = error.error.message;
         this.staticAlertClosed = false;
         console.log(this.error);
