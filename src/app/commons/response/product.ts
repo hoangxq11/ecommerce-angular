@@ -3,11 +3,13 @@ import { BaseResponse } from "./response";
 import { CategoryData } from "./category";
 import { ImageRes } from "./image";
 
-export class ProductRes extends BaseResponse {
+export class ProductRes implements BaseResponse {
+    message!: string;
     data!: ProductData[];
 }
 
-export class ProductDetailRes extends BaseResponse {
+export class ListProductDetailRes implements BaseResponse {
+    message!: string;
     data!: ProductDetailData[];
 }
 
@@ -15,9 +17,9 @@ export class ProductDetailData {
     id!: number;
     price!: number;
     countInStock!: number;
-    product!: ProductData;
+    productDto!: ProductData;
     discount!: DiscountData;
-    color!: string;
+    color!: ColorData;
     size!: SizeData;
 }
 
@@ -56,6 +58,11 @@ export class DiscountData {
 }
 
 export class SizeData {
+    id!: number;
+    name!: string;
+}
+
+export class ColorData {
     id!: number;
     name!: string;
 }

@@ -1,54 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryRes } from 'src/app/commons/response/category';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryListRes, CategoryRes } from 'src/app/commons/response/category';
 import { ProductRes } from 'src/app/commons/response/product';
-import { SearchSpecRes } from 'src/app/commons/response/search';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
-import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent {
+export class CategoryComponent implements OnInit{
 
   categoryRes!: CategoryRes;
-  searchSpecRes!: SearchSpecRes;
-
+  childCategoryRes!: CategoryListRes;
   productRes!: ProductRes;
 
-  constructor(private categoryService: CategoryService, private productService: ProductService, private searchService: SearchService) { }
+  currentPage = 1;
+  pageSize = 8;
+  totalItems!: number;
+
+  constructor(private categoryService: CategoryService, private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getDataCategorySpe();
-    this.getDataProductSpec();
+    this.route.params.subscribe(params => {
+      console.log(params)
+      const categoryId = params['id'].split("-").at(-1)?.replace("c", "");
+      this.getProductsOfCategory(Number(categoryId));
+      this.getCategoriesByParentId(Number(categoryId));
+      this.getCategoriesById(Number(categoryId));
+    });
   }
 
-  getDataProductSpec(){
-      this.productService.getDataProductSpec().subscribe(data => {
+  getProductsOfCategory(categoryId: number){
+      this.productService.getProductsOfCategory(categoryId).subscribe(data => {
         this.productRes = data;
+        this.totalItems = this.productRes.data.length;
         console.log(this.productRes)
       }, error => {
         console.log(error);
       })
   }
 
-  getDataCategorySpe() {
-    this.categoryService.getDataCategorySpe().subscribe(data => {
-      this.categoryRes = data;
-      console.log(this.categoryRes);
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  getSearchSpecial() {
-    this.searchService.getSearchSpecial().subscribe(data => {
-      this.searchSpecRes = data;
+  getCategoriesByParentId(parentId:number){
+    this.categoryService.getCategoriesByParentId(parentId).subscribe(data => {
+      this.childCategoryRes = data;
     }, error => {
       console.log(error);
     })
+  }
+
+  getCategoriesById(categoryId:number){
+    this.categoryService.getCategoriesById(categoryId).subscribe(data => {
+      this.categoryRes = data;
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  convertToSlug(text:string) {
+    return text.toLowerCase()
+               .replace(/ /g, '-')
+               .replace(/[^\w-]+/g, '');
   }
 
 }

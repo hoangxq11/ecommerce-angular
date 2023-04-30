@@ -3,83 +3,90 @@
         <!-- Header  -->
         <div class="mb-2 m-1">
             <div>GIỎ HÀNG</div>
-            <small>( 1 sản phẩm )</small>
+            <small>( {{listProductCartRes.data.length}} sản phẩm )</small>
         </div>
 
         <div class="row m-1 justify-content-between">
             <div class="col-md-9 pl-0 ">
-                <div class="bg-white p-3 row">
-                    <img class="col-md-2 w-100"
-                        src="https://salt.tikicdn.com/cache/200x200/ts/product/4f/fd/d5/c6e393dd248cdaa21c7c4104fe0f08c1.jpg"
-                        alt="">
+                <div *ngFor="let productCart of listProductCartRes.data; trackBy: trackItem"
+                    class="bg-white p-3 row mt-3">
+                    <div><input type="checkbox" [(ngModel)]="productCart.checked" [id]="productCart.productDetailDto.id"
+                            (change)="addToPayment($event.target)" /></div>
+
+                    <img class="col-md-2 w-100" style="height: 110px;"
+                        [src]="productCart.productDetailDto.productDto.images[0].imageUrl" alt="">
 
                     <div class="col-md-5 small">
-                        <h6>Samsung galaxy ZFold2</h6>
-                            <p>- Tác giả: <a href="">Jack Canfield</a> <br>
-                                <span class="text-warning">Sách không hỗ trợ Bookcare </span> <br>
-
-                            </p>
-                            <a class="mr-4" href="">Xóa</a>
-                            <a href="">Để dành mua sau</a>
+                        <h6>{{productCart.productDetailDto.productDto.name.length <= 40 ?
+                                productCart.productDetailDto.productDto.name :
+                                productCart.productDetailDto.productDto.name.substring(0, 40) + " ..." }}</h6>
+                                <p>Màu sắc: {{productCart.productDetailDto.color != null ?
+                                    productCart.productDetailDto.color.name : 'None'}}
+                                </p>
+                                <p>Kích cỡ: {{productCart.productDetailDto.size != null ?
+                                    productCart.productDetailDto.size.name : 'None'}}
+                                </p>
+                                <a class="mr-4" href="">Xóa</a>
+                                <a
+                                    [routerLink]="['/product-detail', convertToSlug(productCart.productDetailDto.productDto.name)+'-p'+productCart.productDetailDto.productDto.id]">Xem
+                                    chi tiết sản phẩm</a>
                     </div>
 
                     <div class="input-group col-md-2" style="height:31px">
                         <div class="input-group-prepend">
-                            <button class="btn btn-light btn-sm" type="submit"><i
-                                    class="fas fa-minus small"></i></button>
+                            <button (click)="decrementValue(productCart.productDetailDto.id)"
+                                class="btn btn-light btn-sm" type="submit"><i class="fas fa-minus"></i></button>
                         </div>
-                        <input type="text" class="form-control text-center" value="1" style="height:31px">
+                        <input type="text" class="form-control text-center" [value]="productCart.quantity"
+                            style="height:31px">
                         <div class="input-group-append">
-                            <button class="btn btn-light btn-sm" type="submit"><i
-                                    class="fas fa-plus small"></i></button>
+                            <button (click)="incrementValue(productCart.productDetailDto.id)"
+                                class="btn btn-light btn-sm" type="submit"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                    <div class="price  col-md-3 text-right">
-                        <h6 class="text-danger">49.000.000 <u>đ</u> </h6>
-                        <div class="small mr-2">
-                            50.000.000 <u>đ</u>
-                        </div>
-                        <span class="text-danger small">-2%</span>
+                    <div class="proce col-md-2 text-right">
+                        <h6 class="text-danger">{{(productCart.quantity * (productCart.productDetailDto.price -
+                            productCart.productDetailDto.discount.value)).toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u> </h6>
+                        <s class="small mr-2">
+                            {{(productCart.productDetailDto.price *
+                            productCart.quantity).toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                        </s>
+                        <span
+                            class="text-danger small">-{{(100*productCart.productDetailDto.discount.value/productCart.productDetailDto.price)
+                            | number : '1.0-0'}}%</span>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 pr-0">
-                <div class="bg-white">
-                    <div class="row  p-3 justify-content-around">
-                        <span>Tiki khuyến mãi</span>
-                        <small class="text-secondary">Có thể chọn 2
-                            <i class="fas fa-info-circle"></i>
-                        </small>
-
-                        <div class="text-primary">
-                            <i class="fas fa-money-check-alt"></i>
-                            <a href="" class="small">Chọn hoặc nhập mã khuyến mãi</a>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="bg-white mt-3 p-2">
                     <div class="row  pl-3 pr-3 p-2 justify-content-between">
                         <span>Tạm tính</span>
-                        <small class="text-secondary">55.000 <u>đ</u>
-                        </small>
+                        <label class="text-secondary">{{totalAmount.toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                        </label>
                     </div>
 
                     <div class="row  pl-3 pr-3 p-2 justify-content-between">
                         <span>Giảm giá</span>
-                        <small class="text-secondary">0 <u>đ</u>
-                        </small>
+                        <label class="text-secondary h6">{{discount.toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                        </label>
                     </div>
 
                     <div class="row  pl-3 pr-3 p-2 justify-content-between">
                         <span>Tổng cộng</span>
-                        <div class="text-secondary">55.000 <u>đ</u>
-                        </div>
+                        <label class="text-danger h5">{{(totalAmount - discount).toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                        </label>
                         <small class="col-md-12 p-0 text-right">(Đã bao gồm VAT nếu có)</small>
                     </div>
                 </div>
-                <button [routerLink]="['/payment']" type="button" name="" id="" class="btn btn-danger btn-md btn-block mt-3 mb-3">Tiến hành đặt
+                <button [disabled]="listProductToPayment.length <= 0" [routerLink]="['/payment']" type="button" name="" id=""
+                    class="btn btn-danger btn-md btn-block mt-3 mb-3">Tiến hành đặt
                     hàng</button>
             </div>
 

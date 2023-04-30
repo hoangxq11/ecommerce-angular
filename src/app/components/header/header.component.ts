@@ -3,19 +3,20 @@ import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CategoryRes } from 'src/app/commons/response/category';
+import { CategoryListRes } from 'src/app/commons/response/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
 
-  categoryRes!: CategoryRes;
+  categoryRes!: CategoryListRes;
 
-  constructor(private modalService: NgbModal, private categoryService: CategoryService, private router: Router) { }
+  constructor(public authService: AuthService, private modalService: NgbModal, private categoryService: CategoryService, public router: Router) { }
 
   ngOnInit(): void {
     this.getDataCategory();
@@ -42,5 +43,16 @@ export class HeaderComponent implements OnInit{
       backdrop: false,
       size: 'lg'
     });
+  }
+
+  onLogout(){
+    sessionStorage.removeItem("jwtToken");
+    this.router.navigate(['/']);
+  }
+
+  convertToSlug(text: string) {
+    return text.toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
   }
 }

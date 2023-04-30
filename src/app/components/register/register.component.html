@@ -15,17 +15,32 @@
         <div class="col-md-8 p-3">
             <h4>Xin chào,</h4>
             <div class="form-group">
-                <label for="">Đăng nhập hoặc tạo tài khoản</label>
-                <input type="text" class="form-control mt-2" name="" id="" aria-describedby="helpId"
-                    placeholder="Tên đăng nhập">
-                <input type="text" class="form-control mt-3" name="" id="" aria-describedby="helpId"
-                    placeholder="Email">
-                <input type="password" class="form-control mt-3" name="" id="" aria-describedby="helpId"
-                    placeholder="Mật khẩu">
-                <input type="password" class="form-control mt-3" name="" id="" aria-describedby="helpId"
-                    placeholder="Xác nhận mật khẩu">
-                <button type="button" name="" id="" class="btn btn-danger mt-4 btn-smd btn-block">Tiếp
-                    tục</button>
+                <label for="">Tạo tài khoản</label>
+                <form class="mb-3 needs-validation" (ngSubmit)="onSubmit()">
+                    <input [(ngModel)]="accountRegister.username" name="username" type="text" class="form-control mt-2"
+                        aria-describedby="helpId" placeholder="Tên đăng nhập">
+                    <div class="valid-feedback">Valid Username.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <input [(ngModel)]="accountRegister.email" name="username" type="text" class="form-control mt-3"
+                        aria-describedby="helpId" placeholder="Email">
+                    <div class="valid-feedback">Valid email.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <input [(ngModel)]="accountRegister.password" name="password" type="password" class="form-control mt-3"
+                        aria-describedby="helpId" placeholder="Mật khẩu">
+                    <div class="valid-feedback">Valid Password.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <input type="password" class="form-control mt-3"
+                        aria-describedby="helpId" placeholder="Xác nhận mật khẩu">
+                    <div class="valid-feedback">Valid Password.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <button (click)="validate()" type="submit" name="" id=""
+                        class="btn btn-danger mt-4 btn-smd btn-block">Tiếp
+                        tục</button>
+                </form>
                 <div class="text-center mt-5 mb-3 small">Hoặc Tiếp tục bằng</div>
                 <div class="row justify-content-center">
                     <div class="col-md-2">

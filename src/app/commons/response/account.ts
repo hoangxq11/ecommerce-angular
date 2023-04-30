@@ -4,3 +4,10 @@ export class Account {
     role!: string;
     email!: string;
 }
+
+export class AccountRegister {
+    username!: string;
+    email!: string;
+    authorities!: string[];
+    password!: string;
+}

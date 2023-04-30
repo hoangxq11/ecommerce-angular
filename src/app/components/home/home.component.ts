@@ -1,10 +1,11 @@
 import { CategoryService } from 'src/app/services/category.service';
-import { CategoryRes } from './../../commons/response/category';
+import { CategoryListRes } from './../../commons/response/category';
 import { Component, OnInit } from '@angular/core';
 import { SearchSpecRes } from 'src/app/commons/response/search';
 import { SearchService } from 'src/app/services/search.service';
 import { ProductService } from 'src/app/services/product.service';
-import { ProductDetailRes, ProductRes } from 'src/app/commons/response/product';
+import { ListProductDetailRes, ProductRes } from 'src/app/commons/response/product';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,13 @@ import { ProductDetailRes, ProductRes } from 'src/app/commons/response/product';
 })
 export class HomeComponent implements OnInit {
 
-  categoryRes!: CategoryRes;
+  categoryRes!: CategoryListRes;
   searchSpecRes!: SearchSpecRes;
 
   productRes!: ProductRes;
+  currentPage = 1;
+  pageSize = 12;
+  totalItems!: number;
 
   constructor(private categoryService: CategoryService, private productService: ProductService, private searchService: SearchService) { }
 
@@ -28,7 +32,7 @@ export class HomeComponent implements OnInit {
   getDataProductSpec(){
       this.productService.getDataProductSpec().subscribe(data => {
         this.productRes = data;
-        console.log(this.productRes)
+        this.totalItems = this.productRes.data.length;
       }, error => {
         console.log(error);
       })
@@ -37,7 +41,6 @@ export class HomeComponent implements OnInit {
   getDataCategorySpe() {
     this.categoryService.getDataCategorySpe().subscribe(data => {
       this.categoryRes = data;
-      console.log(this.categoryRes);
     }, error => {
       console.log(error);
     });
@@ -49,6 +52,12 @@ export class HomeComponent implements OnInit {
     }, error => {
       console.log(error);
     })
+  }
+
+  convertToSlug(text:string) {
+    return text.toLowerCase()
+               .replace(/ /g, '-')
+               .replace(/[^\w-]+/g, '');
   }
 
 }

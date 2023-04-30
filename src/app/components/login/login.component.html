@@ -15,13 +15,22 @@
         <div class="col-md-8 p-3">
             <h4>Xin chào,</h4>
             <div class="form-group">
-                <label for="">Đăng nhập hoặc tạo tài khoản</label>
-                <input type="text" class="form-control mt-2" name="" id="" aria-describedby="helpId"
-                    placeholder="Tên đăng nhập hoặc email">
-                <input type="password" class="form-control mt-3" name="" id="" aria-describedby="helpId"
-                    placeholder="Mật khẩu">
-                <button type="button" name="" id="" class="btn btn-danger mt-4 btn-smd btn-block">Tiếp
-                    tục</button>
+                <label for="">Đăng nhập</label>
+                <form class="mb-3 needs-validation" (ngSubmit)="onSubmit()">
+                    <input [(ngModel)]="accountLogin.username" name="username" type="text" class="form-control mt-2"
+                        aria-describedby="helpId" placeholder="Tên đăng nhập hoặc email">
+                    <div class="valid-feedback">Valid Username.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <input [(ngModel)]="accountLogin.password" name="password" type="password" class="form-control mt-3"
+                        aria-describedby="helpId" placeholder="Mật khẩu">
+                    <div class="valid-feedback">Valid Password.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <button (click)="validate()" type="submit" name="" id=""
+                        class="btn btn-danger mt-4 btn-smd btn-block">Tiếp
+                        tục</button>
+                </form>
                 <div class="text-center mt-5 mb-3 small">Hoặc Tiếp tục bằng</div>
                 <div class="row justify-content-center">
                     <div class="col-md-2">

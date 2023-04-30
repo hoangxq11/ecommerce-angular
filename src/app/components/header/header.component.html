@@ -29,8 +29,8 @@
         <div class="row">
             <nav class="navbar navbar-expand-sm navbar-dark col-12 pt-0">
                 <a class="navbar-brand pt-0 col-1" href="#">
-                    <img style="max-width:85%"
-                        src="https://salt.tikicdn.com/ts/upload/ae/f5/15/2228f38cf84d1b8451bb49e2c4537081.png"
+                    <img style="max-width:147%"
+                        src="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.15752-9/341288112_780656336606591_5841797361888499576_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jACdvwfpguAAX8bNvic&_nc_ht=scontent.fhan3-4.fna&oh=03_AdRpcfbzWea06R9ZEbvWAUpGea4eKx-QvZbZfE1Tcl3hiw&oe=64686349"
                         alt="logo">
                     <!-- <img style="max-width:28%" src="https://salt.tikicdn.com/ts/upload/23/97/dd/2d66c7c7cd54895f698aae24dce13b90.png" alt=""> -->
                 </a>
@@ -51,7 +51,8 @@
                                 <span class="">Sản phẩm</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a *ngFor="let category of categoryRes.data" class="dropdown-item" href="#">
+                                <a [routerLink]="['/category', convertToSlug(category.name)+'-c'+category.id]"
+                                    *ngFor="let category of categoryRes.data" class="dropdown-item" href="#">
                                     <img class="mr-2" style="width: 25px;" src="{{category.image.imageUrl}}" alt="">
                                     <small>{{category.name}}</small>
                                 </a>
@@ -65,7 +66,6 @@
                             <div class="input-group-append" style="height:38px">
                                 <button type="button" class="btn btn-primary" style="background: rgb(13, 92, 182);">
                                     <i class="fas fa-search small"></i>
-                                    <!-- <img src="https://salt.tikicdn.com/ts/upload/ed/5e/b8/8538366274240326978318348ea8af7c.png" style="width: 15%;" alt=""> -->
                                     <small>Tìm kiếm</small>
                                 </button>
                             </div>
@@ -75,10 +75,29 @@
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user-circle"></i>
-                                <!-- <small style="font-size:13px">Đăng nhập | Đăng ký</small><br>  -->
                                 Tài khoản
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <div *ngIf="authService.isLoggedIn()" class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item">
+                                    <button [routerLink]="['/account']" type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Thông tin tài khoản
+                                    </button>
+                                </a>
+                                <a class="dropdown-item">
+                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Đơn hàng của tôi
+                                    </button>
+                                </a>
+                                <a class="dropdown-item">
+                                    <button (click)="onLogout()" type="button" class="btn btn-warning btn-sm btn-block">
+                                        Đăng xuất
+                                    </button>
+                                </a>
+                            </div>
+
+                            <div *ngIf="!authService.isLoggedIn()" class="dropdown-menu" aria-labelledby="dropdownId">
                                 <a class="dropdown-item" (click)="openLoginModal()">
                                     <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
                                         data-target="#myModal">
@@ -115,8 +134,10 @@
                         </li>
 
                         <li class="nav-item dropdown active" style="font-size:14px">
-                            <a [routerLink]="['my-cart']" class="nav-link dropdown-toggle" id="dropdownId"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a [routerLink]="authService.isLoggedIn() ? ['/my-cart'] : null"
+                                (click)="!authService.isLoggedIn() && openLoginModal()" class="nav-link dropdown-toggle"
+                                id="dropdownId" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 <i class="fas fa-shopping-cart mr-1">
                                     <span class="badge badge-pill badge-warning position-absolute"
                                         style="top: 0; left: 1.2rem">0</span>

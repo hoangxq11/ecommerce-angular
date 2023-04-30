@@ -1,3 +1,4 @@
-export class BaseResponse {
-    message!: string;
+export interface BaseResponse {
+    message: string;
+    data: Object
 }

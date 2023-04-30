@@ -4,50 +4,43 @@
         <h6 class="mb-3">CHI TIẾT SẢN PHẨM</h6>
         <div class="bg-white pt-4 pb-4 p-3 m-1 text-center row">
             <div class="col-md-4 p-0">
-                <img class="w-100"
-                    src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20Detail%20Image%2Fss-galaxy-zFold-detail04.png?alt=media&token=ab16b4ce-9db0-4014-9d37-3335a5b53d27"
-                    alt="">
-                <div class="row mt-2 m-0">
-                    <div class="col-md-3 border border-secondary p-1">
-                        <img class="w-100"
-                            src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20Detail%20Image%2Fss-galaxy-zFold-detail02.png?alt=media&token=c931c715-0279-481f-a921-d8a0b07b7606"
-                            alt="">
+
+                <div id="carousel-example-1z" class="carousel slide carousel-fade col-md-8 pr-0" data-ride="carousel">
+                    
+                    <!--Slides-->
+                    <div class="carousel-inner" style="width: 280px;" role="listbox">
+                        <div *ngFor="let image of listProductDetailRes.data[0].productDto.images; let i=index"
+                            class="carousel-item" [class]="i == 0 ? 'active': ''">
+                            <img class="w-100" style="height: 380px;" [src]="image.imageUrl" alt="">
+                        </div>
                     </div>
 
-                    <div class="col-md-3 border border-secondary p-1">
-                        <img class="w-100"
-                            src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20Detail%20Image%2Fss-galaxy-zFold-detail03.png?alt=media&token=267b8976-db73-48f5-be47-f9b4a17d1c8e"
-                            alt="">
-                    </div>
+                    <!-- <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true">
+                        <ng-template ngbSlide *ngFor="let image of listProductDetailRes.data[0].productDto.images">
+                            <img class="w-100" style="height: 380px;" [src]="image.imageUrl" alt="">
+                        </ng-template>
+                    </ngb-carousel> -->
 
-                    <div class="col-md-3 border border-secondary p-1">
-                        <img class="w-100"
-                            src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20Detail%20Image%2Fss-galaxy-zFold-detail02.png?alt=media&token=c931c715-0279-481f-a921-d8a0b07b7606"
-                            alt="">
-                    </div>
-
-                    <div class="col-md-3 border border-secondary p-1">
-                        <img class="w-100"
-                            src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20Detail%20Image%2Fss-galaxy-zFold-detail03.png?alt=media&token=267b8976-db73-48f5-be47-f9b4a17d1c8e"
-                            alt="">
-                    </div>
+                    <!--Controls-->
+                    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev"
+                        style="left: 15px; background: #c7c7c7;border-bottom-right-radius: 5px; border-top-right-radius: 5px; width: 10%;top: 150px;height: 60px">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next"
+                        style="right: -57px; background: #c7c7c7; border-bottom-right-radius: 5px; border-top-right-radius: 5px; width: 10%;top: 150px;height: 60px">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
 
                 </div>
 
-                <div class="badge badge-danger p-2 mt-3">Đặc điểm nổi bật</div>
-                <div class="special">
-                    <ul class="p-3">
-                        <li class="small text-left">Hai màn hình HD+ mở rộng tối đa không gian trải nghiệm hình ảnh</li>
-                        <li class="small text-left">Thân máy hoàn thiện đường gập tối ưu</li>
-                        <li class="small text-left">Sạc nhanh siêu tốc 15W giúp nạp đầy năng lượng nhanh chóng</li>
-                        <li class="small text-left">Dung lượng pin lớn 4500mAh thoải mái trải nghiệm cả ngày dài</li>
-                        <li class="small text-left">3 camera sau 12MP + 12MP + 12MP hỗ trợ chụp ảnh đa tính năng</li>
-                    </ul>
-                </div>
+                <br>
+
             </div>
 
-            <div class="col-md-5 pl-4 text-left">
-                <h5>Samsung galaxy ZFold2</h5>
+            <div class="col-md-7 pl-4 text-left">
+                <h5>{{listProductDetailRes.data[0].productDto.name}}</h5>
                 <div class="rate row m-1 mt-3 mb-2 align-items-center">
                     <span class="fa fa-star checked text-warning small"></span>
                     <span class="fa fa-star checked text-warning small"></span>
@@ -58,9 +51,11 @@
                 </div>
                 <div class="price bg-light p-2">
                     <div class="row m-1 align-items-center">
-                        <h4>49.000.000 <u>đ</u></h4>
+                        <h4>{{(listProductDetailRes.data[0].price-listProductDetailRes.data[0].discount.value).toLocaleString().replace(",",
+                            ".")}} <u>đ</u></h4>
                         <span class="badge badge-pill badge-danger ml-3 mr-3">- 2%</span>
-                        <div>50.000.000 <u>đ</u> </div>
+                        <s>{{listProductDetailRes.data[0].price.toLocaleString().replace(",",
+                            ".")}} <u>đ</u> </s>
                     </div>
                 </div>
 
@@ -69,201 +64,70 @@
                         alt="">
                 </div>
 
+                <br>
                 <div class="option">
-                    <small>Chọn màu:
-                        <div class="text-success">Trắng</div>
-                    </small>
+                    <div *ngIf="colors.length > 0">
+                        <span>Chọn màu:
+                            <div class="text-success" [textContent]="color.name"></div>
+                        </span>
 
-                    <div class="row m-2">
-                        <div class="mobile--item col-md-2 small ml-2 mr-2 border border-info rounded text-center ">
-                            Trắng
-                        </div>
-
-                        <div class="mobile--item col-md-2 small ml-2 mr-2 border border-info rounded text-center">
-                            Vàng
-                        </div>
-
-                        <div class="mobile--item col-md-2 small ml-2 mr-2 border border-info rounded text-center">
-                            Xám
+                        <div class="row m-2">
+                            <button (click)="onChangeColor(item.id)" *ngFor="let item of colors"
+                                class="mb-2 mobile--item col-md-2 small ml-2 mr-2 border border-info rounded text-center"
+                                [style.border-width]=" color.id == item.id ? '4px !important' : ''">
+                                {{item.name}}
+                            </button>
                         </div>
                     </div>
 
-                    <small>Số lượng:</small>
+                    <div *ngIf="sizes.length > 0">
+                        <span>Chọn size:
+                            <div class="text-success">{{size.name}}</div>
+                        </span>
+
+                        <div class="row m-2">
+                            <button (click)="onChangeSize(item.id)" *ngFor="let item of sizes"
+                                class="mb-2 mobile--item col-md-2 small ml-2 mr-2 border border-info rounded text-center"
+                                [style.border-width]=" size.id == item.id ? '4px !important' : ''">
+                                {{item.name}}
+                            </button>
+                        </div>
+                    </div>
+
+                    Số lượng:
                     <div class="input-group col-md-4 m-2">
+                        <!-- button increment -->
                         <div class="input-group-prepend">
-                            <button class="btn btn-success btn-sm" type="submit"><i
-                                    class="fas fa-minus small"></i></button>
+                            <button (click)="decrementValue()" class="btn btn-success btn-sm" type="submit"><i
+                                    class="fas fa-minus"></i></button>
                         </div>
-                        <input type="text" class="form-control text-center" value="1" style="height:31px">
+                        <input type="text" class="form-control text-center" min="1" [(ngModel)]="quantity"
+                            style="height:31px">
+
+                        <!-- button decrement -->
                         <div class="input-group-append">
-                            <button class="btn btn-success btn-sm" type="submit"><i
-                                    class="fas fa-plus small"></i></button>
+                            <button (click)="incrementValue()" class="btn btn-success btn-sm" type="submit"><i
+                                    class="fas fa-plus"></i></button>
                         </div>
                     </div>
 
-                    <button type="button" name="" id="" class="btn btn-success btn-md btn-block mt-5">Thêm vào giỏ
+                    <button (click)="authService.isLoggedIn() ? addToCart() : openLoginModal()" type="button" name="" id="" class="btn btn-success btn-md btn-block mt-5">Thêm vào giỏ
                         hàng</button>
-                    <div class="row mt-2 m-0">
-                        <button type="button" name="" id="" class="col-md-6 btn btn-outline-primary btn-sm">
-                            <h6 class="m-0">TRẢ GÓP 0%</h6>
-                            <small>Duyệt nhanh qua điện thoại</small>
-                        </button>
-                        <button type="button" name="" id="" class="col-md-6 btn btn-outline-primary btn-sm">
-                            <h6 class="m-0">TRẢ GÓP QUA THẺ</h6>
-                            <small>Visa, Master Card, VCB</small>
-                        </button>
-                    </div>
                 </div>
-
             </div>
 
-            <div class="col-md-3">
-                <div class="row justify-content-center mb-1">
-                    <button type="button" name="" id="" class="btn btn-default mr-2">
-                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-like.svg"
-                            alt="">
-                    </button>
-
-                    <button type="button" name="" id="" class="btn btn-default ">
-                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-account-social.svg"
-                            alt="">
-                    </button>
-                </div>
-
-                <div class="card bg-light">
-                    <div class="card-header font-weight-bold p-1">Phụ kiện đi kèm</div>
-                    <div class="card-body m-1 pl-3 pr-3 p-0">
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Sạc</span>
-                            <span>x1</span>
-                        </div>
-
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Cáp sạc</span>
-                            <span>x2</span>
-                        </div>
-
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Cây lấy sim</span>
-                            <span>x2</span>
-                        </div>
-
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Tai nghe </span>
-                            <span>x1</span>
-                        </div>
-
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Sách hướng dẫn</span>
-                            <span>x1</span>
-                        </div>
-
-                        <div class=" row p-2 p-0 justify-content-between">
-                            <span>Ốp lưng</span>
-                            <span>x2</span>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
         </div>
 
-        <!-- Thông số kỹ thuật -->
-        <h6 class="mt-4 mb-2">THÔNG SỐ KỸ THUẬT</h6>
-        <div class="parameter bg-white pt-4 pb-4 p-3 m-1 row">
-            <table class="table table-responsive table-striped">
-                <tbody>
-                    <tr>
-                        <td>Màn hình</td>
-                        <td>Màn hình trước: 6.2", Màn hình chính: 7.6", HD+, Chính: Dynamic AMOLED 2X, phụ: Super
-                            AMOLED, 1768 x 2208 Pixel</td>
-                    </tr>
 
-                    <tr>
-                        <td>Camera sau</td>
-                        <td>12.0 MP + 12.0 MP + 12.0 MP</td>
-                    </tr>
-
-                    <tr>
-                        <td>RAM</td>
-                        <td>12 GB</td>
-                    </tr>
-
-                    <tr>
-                        <td>ROM</td>
-                        <td>256 GB</td>
-                    </tr>
-
-                    <tr>
-                        <td>Dung lượng Pin</td>
-                        <td>4500 mAh</td>
-                    </tr>
-
-                    <tr>
-                        <td>Xuất xứ</td>
-                        <td>Việt Nam</td>
-                    </tr>
-
-                    <tr>
-                        <td>Thời gian ra mắt</td>
-                        <td>07/2021</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
         <!-- Mô tả sản phẩm -->
         <h6 class="mt-4 mb-2 m-1">MÔ TẢ SẢN PHẨM</h6>
-        <div class="row bg-white pt-4 pb-4 p-3 m-1">
-            <div class="description--product col-md-7">
-                <p>Không giống bất kỳ chiếc điện thoại nào khác, Samsung Galaxy Z Fold 2 5G sở hữu màn hình gập kỳ diệu
-                    mà mỗi khi mở màn hình, bạn đã mở ra tương lai của ngành công nghiệp smartphone.</p>
-                <img class="w-100"
-                    src="https://images.fpt.shop/unsafe/fit-in/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/samsung-galaxy-zfold2-6.jpg"
-                    alt="">
-                <button type="button" name="" id="" class="btn btn-success mt-3">Đọc thêm <i
-                        class="fas fa-caret-down"></i></button>
-            </div>
-
-            <div class="col-md-5">
-                <h5 class="mb-4">Tin tức và sự kiện</h5>
-                <div class="row mb-2">
-                    <img class="col-md-4"
-                        src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20New%20Image%2Fss-galaxy-zFold-new04.png?alt=media&token=19053c30-7a46-4cdb-9851-c97da0ff5276"
-                        alt="">
-                    <small class="col-md-8">Samsung đang đưa một số tính năng của Galaxy S21 lên các thiết bị cũ
-                        hơn</small>
-                </div>
-
-                <div class="row mb-2">
-                    <img class="col-md-4"
-                        src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20New%20Image%2Fss-galaxy-zFold-new04.png?alt=media&token=19053c30-7a46-4cdb-9851-c97da0ff5276"
-                        alt="">
-                    <small class="col-md-8">Samsung đang đưa một số tính năng của Galaxy S21 lên các thiết bị cũ
-                        hơn</small>
-                </div>
-
-                <div class="row mb-2">
-                    <img class="col-md-4"
-                        src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20New%20Image%2Fss-galaxy-zFold-new04.png?alt=media&token=19053c30-7a46-4cdb-9851-c97da0ff5276"
-                        alt="">
-                    <small class="col-md-8">Samsung đang đưa một số tính năng của Galaxy S21 lên các thiết bị cũ
-                        hơn</small>
-                </div>
-
-                <div class="row mb-2">
-                    <img class="col-md-4"
-                        src="https://firebasestorage.googleapis.com/v0/b/techshop-website.appspot.com/o/images%2FProduct%20New%20Image%2Fss-galaxy-zFold-new04.png?alt=media&token=19053c30-7a46-4cdb-9851-c97da0ff5276"
-                        alt="">
-                    <small class="col-md-8">Samsung đang đưa một số tính năng của Galaxy S21 lên các thiết bị cũ
-                        hơn</small>
-                </div>
-            </div>
+        <div class="row bg-white pt-4 pb-4 p-3 m-1 description"
+            [innerHTML]="listProductDetailRes.data[0].productDto.description">
         </div>
 
         <!-- Similar product  -->
-        <h6 class="mt-4 mb-2 m-1">SẢN PHẨM TƯƠNG TỰ</h6>
+        <!-- <h6 class="mt-4 mb-2 m-1">SẢN PHẨM TƯƠNG TỰ</h6>
         <div class="row bg-white pt-4 pb-4 p-3 m-1">
             <div class="product--item col-md-3">
                 <img src="https://phoneaqua.com/products/apple-iphone-12.jpg" alt="">
@@ -388,7 +252,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Receive Mail   -->
         <div class="row p-3 mt-3 align-items-center">

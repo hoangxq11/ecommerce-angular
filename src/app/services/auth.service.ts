@@ -1,12 +1,12 @@
-import { JwtResponse } from './../commons/response/jwt-response';
 import { Injectable } from '@angular/core';
+import { JwtData } from './../commons/response/jwt-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  jwtResponse: JwtResponse = JSON.parse(sessionStorage.getItem('jwtToken') || "{}");
+  jwtData: JwtData = JSON.parse(sessionStorage.getItem('jwtToken') || "{}");
 
   constructor() { }
 
@@ -15,6 +15,6 @@ export class AuthService {
   }
 
   getToken() {
-    return this.jwtResponse.token;
+    return this.jwtData.token;
   }
 }

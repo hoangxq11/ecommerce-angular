@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryRes } from '../commons/response/category';
+import { CategoryListRes } from '../commons/response/category';
 import { SearchSpecRes } from '../commons/response/search';
 
 @Injectable({

@@ -1,6 +1,7 @@
 import { BaseResponse } from "./response";
 
-export class SearchSpecRes extends BaseResponse {
+export class SearchSpecRes implements BaseResponse {
+    message!: string;
     data!: SearchData[];
 }
 

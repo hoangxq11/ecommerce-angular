@@ -64,7 +64,7 @@
             </h5>
             <div class="list__category pt-4 pb-4 row">
                 <div *ngFor="let category of categoryRes.data" class="col-md-2 text-center">
-                    <img class="w-50" src="{{category.image.imageUrl}}" alt="">
+                    <a [routerLink]="['/category', convertToSlug(category.name)+'-c'+category.id]"><img class="w-50" [src]="category.image.imageUrl" alt=""></a>
                     <h6 class="small pt-2" style="font-size:12px">{{category.name}}</h6>
                 </div>
             </div>
@@ -257,29 +257,40 @@
                 <span class="text-danger">SẢN PHẨM NỔI BẬT</span>
             </h5>
             <div class="product__detail row mt-5">
-                <div *ngFor="let product of productRes.data" [routerLink]="['product-detail']" class="product--item col-md-3 mb-4">
-                    <img style="width: 160px; height: 206px; border-radius: 2%;" src="{{product.images[0].imageUrl}}" alt="">
+                <div *ngFor="let product of productRes.data | paginate: { itemsPerPage: pageSize, currentPage: currentPage }"
+                    class="product--item col-md-3 mb-4">
+                    <a [routerLink]="['product-detail', convertToSlug(product.name)+'-p'+product.id]">
+                        <img style="width: 160px; height: 206px; border-radius: 2%;"
+                            src="{{product.images[0].imageUrl}}" alt="">
+                    </a>
 
-                    <h6 class="mt-4 mb-1 text-darkgrey">{{product.name.length <= 40 ? product.name.length : product.name.substring(0, 40) + " ..."}}</h6>
-                    <div class="rate mb-3">
-                        <span class="fa fa-star checked text-warning small"></span>
-                        <span class="fa fa-star checked text-warning small"></span>
-                        <span class="fa fa-star checked text-warning small"></span>
-                        <span class="fa fa-star text-secondary small"></span>
-                        <span class="fa fa-star text-secondary small"></span>
-                    </div>
-                    <span class="badge badge-pill badge-danger pt-2 pb-2 pl-3 pr-3 mr-1">{{(product.price-product.discount.value).toLocaleString().replace(",", ".")}} <u>đ</u></span>
-                    <span class="badge badge-pill badge-warning p-2 mr-1">-{{(100*product.discount.value/product.price) | number : '1.0-0'}}%</span>
-                    <s class="small" style="color: #8a8a8a;">{{product.price.toLocaleString().replace(",", ".")}} <u>đ</u></s>
+                    <h6 [routerLink]="['product-detail', convertToSlug(product.name)+'-p'+product.id]"
+                        class="mt-4 mb-1 text-darkgrey">{{product.name.length <= 40 ? product.name :
+                            product.name.substring(0, 40) + " ..." }}</h6>
+                            <div class="rate mb-3">
+                                <span class="fa fa-star checked text-warning small"></span>
+                                <span class="fa fa-star checked text-warning small"></span>
+                                <span class="fa fa-star checked text-warning small"></span>
+                                <span class="fa fa-star text-secondary small"></span>
+                                <span class="fa fa-star text-secondary small"></span>
+                            </div>
+                            <span
+                                class="badge badge-pill badge-danger pt-2 pb-2 pl-3 pr-3 mr-1">{{(product.price-product.discount.value).toLocaleString().replace(",",
+                                ".")}} <u>đ</u></span>
+                            <span
+                                class="badge badge-pill badge-warning p-2 mr-1">-{{(100*product.discount.value/product.price)
+                                | number : '1.0-0'}}%</span>
+                            <s class="small" style="color: #8a8a8a;">{{product.price.toLocaleString().replace(",",
+                                ".")}} <u>đ</u></s>
 
-                    
-
-                    <!-- <button type="button" name="" id="" class="btn btn-success float-right  btn-sm">
-                            <i class="fas fa-cart-plus mr-2"></i> Buy
-                        </button> -->
                 </div>
 
             </div>
+            <div class="d-flex justify-content-center mt-2">
+                <pagination-controls previousLabel="Trước" nextLabel="Sau" (pageChange)="currentPage = $event"
+                    class="align-self-center"></pagination-controls>
+            </div>
+
         </div>
 
         <!-- Receive Mail   -->
