@@ -15,6 +15,11 @@ export class BillListRes implements BaseResponse {
     data!: BillData[];
 }
 
+export class BillRes implements BaseResponse {
+    message!: string;
+    data!: BillData;
+}
+
 export class BillData {
     id!: number;
     status!: string;

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BillListRes, BillReq } from '../commons/response/order';
+import { BillListRes, BillReq, BillRes } from '../commons/response/order';
 import { BaseResponse } from '../commons/response/response';
 import { AuthService } from './auth.service';
 
@@ -22,6 +22,14 @@ export class OrderService {
 
     getBills(): Observable<BillListRes> {
         return this.httpClient.get<BillListRes>(`${this.baseURL}`, {
+            headers: new HttpHeaders({
+                'Authorization': `Bearer ${this.authService.getToken()}`
+            })
+        });
+    }
+
+    getBillById(billId: number): Observable<BillRes> {
+        return this.httpClient.get<BillRes>(`${this.baseURL}/${billId}`, {
             headers: new HttpHeaders({
                 'Authorization': `Bearer ${this.authService.getToken()}`
             })

@@ -1,4 +1,4 @@
-<div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8 mt-4">
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8 pt-4">
     <div class="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
         <app-sidebar-account [activeTag]="'order'"></app-sidebar-account>
         <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV snipcss-AcVpU">
@@ -48,8 +48,17 @@
                             <div data-index="0" id="style-c7ff2" class="style-c7ff2">
                                 <div>
                                     <div class="infinite-scroll-component  style-kMYFm" id="style-kMYFm">
-                                        <div *ngFor="let bill of billListData"
-                                            class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
+                                        <div *ngIf="billListDataFilter.length <= 0"
+                                            class="styles__EmptyCpn-sc-1twarw-0 hggZkm snipcss-5oQsg">
+                                            <img
+                                                src="https://frontend.tikicdn.com/_desktop-next/static/img/account/empty-order.png">
+                                            <p>
+                                                Chưa có đơn hàng
+                                            </p>
+                                        </div>
+
+                                        <div *ngFor="let bill of billListDataFilter"
+                                            class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi" [routerLink]="['/order/detail', bill.id]">
                                             <div [ngClass]="bill.status == 'CANCELED' ? 'eUsvUb' : 'hBsvqt'"
                                                 color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1">
                                                 <span class="main-status">
@@ -110,60 +119,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi">
-                                            <div color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1 hBsvqt">
-                                                <span class="main-status">
-                                                    Giao hàng thành công
-                                                </span>
-                                            </div>
-                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
-                                                <div>
-                                                    <div class="product">
-                                                        <div class="detail">
-                                                            <div class="product-img style-YaMIX" id="style-YaMIX">
-                                                                <span class="quantity">
-                                                                    x1
-                                                                </span>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <p class="product-name">
-                                                                    Bộ 3 chiếc Nhẫn nam nữ unisex thánh giá nối thắt đai
-                                                                    thả tua cá tính tặng ảnh Vcone
-                                                                </p>
-                                                                <div class="store">
-                                                                    <span>
-                                                                        trangsucnu
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            <span>
-                                                                99.000 ₫
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
-                                                <div class="total-money">
-                                                    <div class="title">
-                                                        Tổng tiền:
-                                                    </div>
-                                                    <div class="total">
-                                                        121.000 ₫
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <div>
-                                                        Mua lại
-                                                    </div>
-                                                    <div>
-                                                        Xem chi tiết
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>

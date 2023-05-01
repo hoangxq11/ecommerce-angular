@@ -26,6 +26,7 @@ import { AddressUpdateComponent } from './components/address-update/address-upda
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OrderComponent,
     AddressComponent,
     AddressUpdateComponent,
-    ShippingComponent
+    ShippingComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

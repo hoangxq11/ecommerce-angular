@@ -7,12 +7,13 @@
                     <div class="row  pl-3 pr-3 p-2 justify-content-between">
                         <h6>Danh mục sản phẩm</h6>
                     </div>
-                    <a *ngFor="let child of childCategoryRes.data"
+                    <div *ngFor="let child of childCategoryRes.data"
                         [routerLink]="['/category/' + convertToSlug(child.name)+'-c'+child.id]"
                         routerLinkActive="active"
-                        class="row  pl-3 pr-3 p-2 justify-content-between">
+                        class="row pl-3 pr-3 p-2 justify-content-between"
+                        style="cursor: pointer;">
                         {{child.name}}
-                    </a>
+                    </div>
                 </div>
             </div>
             <!-- Mobile--category   -->

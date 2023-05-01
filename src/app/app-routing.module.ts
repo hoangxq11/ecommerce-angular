@@ -13,6 +13,7 @@ import { OrderComponent } from './components/order/order.component';
 import { AddressComponent } from './components/address/address.component';
 import { AddressUpdateComponent } from './components/address-update/address-update.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountInfoComponent, canActivate: [AuthGuard] },
   { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
+  { path: 'order/detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'address', component: AddressComponent, canActivate: [AuthGuard] },
   { path: 'shipping', component: ShippingComponent, canActivate: [AuthGuard] },
   { path: 'address-update', component: AddressUpdateComponent, canActivate: [AuthGuard] },

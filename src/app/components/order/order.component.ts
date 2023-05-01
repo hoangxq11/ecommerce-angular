@@ -11,6 +11,7 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderComponent implements OnInit {
 
   billListData!: BillData[];
+  billListDataFilter!: BillData[];
 
   orderStatus: string = 'ALL'
 
@@ -26,6 +27,7 @@ export class OrderComponent implements OnInit {
   getBills() {
     this.orderService.getBills().subscribe(data => {
       this.billListData = data.data;
+      this.billListDataFilter = data.data;
       console.log(this.billListData)
     }, error => {
       console.log(error);
@@ -35,22 +37,27 @@ export class OrderComponent implements OnInit {
 
   allOrder() {
     this.orderStatus = 'ALL';
+    this.billListDataFilter = this.billListData;
   }
 
   pendingOrder(){
     this.orderStatus = 'PENDING';
+    this.billListDataFilter = this.billListData.filter(e => e.status == 'PENDING')
   }
 
   shippingOrder(){
     this.orderStatus = 'SHIPPING';
+    this.billListDataFilter = this.billListData.filter(e => e.status == 'SHIPPING')
   }
 
   canceledOrder(){
     this.orderStatus = 'CANCELED';
+    this.billListDataFilter = this.billListData.filter(e => e.status == 'CANCELED')
   }
 
   doneOrder(){
     this.orderStatus = 'DONE';
+    this.billListDataFilter = this.billListData.filter(e => e.status == 'DONE')
   }
 
 }
