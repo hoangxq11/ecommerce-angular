@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddressListRes, AddressReq, AddressRes, District, Province } from '../commons/response/address';
+import { AddressListRes, AddressReq, AddressRes, District, Province } from '../commons/dto/address';
 import { AuthService } from './auth.service';
-import { BaseResponse } from '../commons/response/response';
+import { BaseResponse } from '../commons/dto/response';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +15,14 @@ export class AddressService {
 
     getDefaultAddress(): Observable<AddressRes> {
         return this.httpClient.get<AddressRes>(`${this.baseURL}/default`, {
+            headers: new HttpHeaders({
+                'Authorization': `Bearer ${this.authService.getToken()}`
+            })
+        });
+    }
+
+    getAddressById(addressId: number): Observable<AddressRes> {
+        return this.httpClient.get<AddressRes>(`${this.baseURL}/${addressId}`, {
             headers: new HttpHeaders({
                 'Authorization': `Bearer ${this.authService.getToken()}`
             })
@@ -39,6 +47,14 @@ export class AddressService {
 
     updateAddress(addressId: number, addressReq: AddressReq) {
         return this.httpClient.put<BaseResponse>(`${this.baseURL}/${addressId}`, addressReq, {
+            headers: new HttpHeaders({
+                'Authorization': `Bearer ${this.authService.getToken()}`
+            })
+        });
+    }
+
+    deleteAddress(addressId: number) {
+        return this.httpClient.delete<BaseResponse>(`${this.baseURL}/${addressId}`, {
             headers: new HttpHeaders({
                 'Authorization': `Bearer ${this.authService.getToken()}`
             })

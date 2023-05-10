@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AccountRegister } from 'src/app/commons/response/account';
+import { AccountRegister } from 'src/app/commons/dto/account';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginComponent } from '../login/login.component';

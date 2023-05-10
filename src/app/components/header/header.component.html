@@ -29,10 +29,10 @@
         <div class="row">
             <nav class="navbar navbar-expand-sm navbar-dark col-12 pt-0">
                 <a class="navbar-brand pt-0 col-1" href="#">
-                    <img style="max-width:147%"
+                    <!-- <img style="max-width:147%"
                         src="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.15752-9/341288112_780656336606591_5841797361888499576_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jACdvwfpguAAX8bNvic&_nc_ht=scontent.fhan3-4.fna&oh=03_AdRpcfbzWea06R9ZEbvWAUpGea4eKx-QvZbZfE1Tcl3hiw&oe=64686349"
-                        alt="logo">
-                    <!-- <img style="max-width:28%" src="https://salt.tikicdn.com/ts/upload/23/97/dd/2d66c7c7cd54895f698aae24dce13b90.png" alt=""> -->
+                        alt="logo"> -->
+                    <img style="max-width:140%" src="https://salt.tikicdn.com/ts/upload/23/97/dd/2d66c7c7cd54895f698aae24dce13b90.png" alt="">
                 </a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -60,11 +60,13 @@
                         </li>
 
                         <div class="input-group align-items-center">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" [(ngModel)] = "searchReq.keyWord" name="keyword"
                                 placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..." id="demo"
                                 name="email" style="border-radius: 0px; background-clip: unset; ">
                             <div class="input-group-append" style="height:38px">
-                                <button type="button" class="btn btn-primary" style="background: rgb(13, 92, 182);">
+                                <button [routerLink]="['/search', searchReq.keyWord]" 
+                                 
+                                type="button" class="btn btn-primary" style="background: rgb(13, 92, 182);">
                                     <i class="fas fa-search small"></i>
                                     <small>Tìm kiếm</small>
                                 </button>

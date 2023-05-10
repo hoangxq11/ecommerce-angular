@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
-import { BillData } from 'src/app/commons/response/order';
+import { BillData } from 'src/app/commons/dto/order';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({

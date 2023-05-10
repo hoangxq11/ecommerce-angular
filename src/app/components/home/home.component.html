@@ -64,7 +64,8 @@
             </h5>
             <div class="list__category pt-4 pb-4 row">
                 <div *ngFor="let category of categoryRes.data" class="col-md-2 text-center">
-                    <a [routerLink]="['/category', convertToSlug(category.name)+'-c'+category.id]"><img class="w-50" [src]="category.image.imageUrl" alt=""></a>
+                    <a [routerLink]="['/category', convertToSlug(category.name)+'-c'+category.id]"><img class="w-50"
+                            [src]="category.image.imageUrl" alt=""></a>
                     <h6 class="small pt-2" style="font-size:12px">{{category.name}}</h6>
                 </div>
             </div>
@@ -147,7 +148,7 @@
         </div>
 
         <!-- search--hightlight  -->
-        <div class="search__hightlight mt-3 p-3 bg-white">
+        <!-- <div class="search__hightlight mt-3 p-3 bg-white">
             <div class="row justify-content-between pl-3 pr-3">
                 <div>
                     <h5 class="text-danger">
@@ -248,45 +249,78 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- Mobile--category   -->
-        <div class="product mt-4 ml-0 mr-0 p-3 bg-white">
-            <h5>
+        <div class="product mt-4 ml-0 mr-0 p-3">
+            <h5 class="mb-4">
                 <i class="fas fa-vest mr-2 text-danger"></i>
                 <span class="text-danger">SẢN PHẨM NỔI BẬT</span>
             </h5>
-            <div class="product__detail row mt-5">
-                <div *ngFor="let product of productRes.data | paginate: { itemsPerPage: pageSize, currentPage: currentPage }"
-                    class="product--item col-md-3 mb-4">
-                    <a [routerLink]="['product-detail', convertToSlug(product.name)+'-p'+product.id]">
-                        <img style="width: 160px; height: 206px; border-radius: 2%;"
-                            src="{{product.images[0].imageUrl}}" alt="">
+            <div data-view-id="product_list_container"
+                data-view-content="{&quot;click_data&quot;:{&quot;trace_id&quot;:&quot;UiETN7O5NxnEv5Mg&quot;}}"
+                class="ProductList__NewWrapper-sc-1dl80l2-0 jXFjHV">
+                <div class=""
+                    *ngFor="let product of productRes.data | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+                    <a class="product-item" data-view-id="product_list_item"
+                        data-view-content="{&quot;click_data&quot;:{&quot;id&quot;:4723053,&quot;spid&quot;:53626289,&quot;position&quot;:1,&quot;trace_id&quot;:&quot;UiETN7O5NxnEv5Mg&quot;}}"
+                        [routerLink]="['product-detail', convertToSlug(product.name)+'-p'+product.id]">
+                        <div><span class="style__StyledItem-sc-18svp8n-0 fkDgwT">
+                                <div class="thumbnail">
+                                    <div class="badge-top"></div>
+                                    <div class="image-wrapper">
+                                        <picture class="webpimg-container">
+                                            <source type="image/webp"
+                                                srcset="{{product.images[0].imageUrl}} 1x, {{product.images[0].imageUrl}} 2x">
+                                            <img src="{{product.images[0].imageUrl}}" alt="{{product.name.length <= 40 ? product.name :
+                                                    product.name.substring(0, 40) + ' ...' }}"
+                                                srcset="{{product.images[0].imageUrl}} 1x, {{product.images[0].imageUrl}} 2x"
+                                                class="WebpImg__StyledImg-sc-h3ozu8-0 fWjUGo">
+                                        </picture>
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <div class="name">
+                                        <h3>{{product.name.length <= 40 ? product.name : product.name.substring(0, 40)
+                                                + " ..." }}</h3>
+                                    </div>
+                                    <div class="styles__StyledRatingQtySold-sc-732h27-0 uDeVr style-pGz7r"
+                                        id="style-pGz7r">
+                                        <div class="full-rating">
+                                            <div class="total"><span>4.7</span><svg stroke="currentColor"
+                                                    fill="currentColor" stroke-width="0" viewBox="0 0 24 24" size="14"
+                                                    color="#fdd836" height="14" width="14"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style="color: rgb(253, 216, 54);">
+                                                    <path
+                                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                                                    </path>
+                                                </svg></div>
+                                        </div>
+                                        <div class="styles__StyledSeparator-sc-732h27-1 gcwbHk"></div>
+                                        <div class="styles__StyledQtySold-sc-732h27-2 fCfYNm">Đã bán 1542</div>
+                                    </div>
+                                    <div class="price-discount mt-2">
+                                        <div class="price-discount__price">
+                                            {{product.price.toLocaleString().replaceAll(",",
+                                            ".")}}<sup> ₫</sup></div>
+                                    </div>
+                                    <div class="badge-under-price style-5pGII mt-3" id="style-5pGII">Giảm giá tới
+                                        {{(product.discount.value).toLocaleString().replaceAll(",",
+                                        ".")}} đ<br>≈ {{(100*product.discount.value/product.price)
+                                        | number : '1.0-0'}}%
+                                        hoàn tiền</div>
+                                    <div class="badge-under-rating"></div>
+                                </div>
+                                <div class="badge-delivery"><span id="style-bt2a1" class="style-bt2a1">Giao hàng từ 3-5
+                                        ngày</span>
+                                </div>
+                            </span></div>
                     </a>
-
-                    <h6 [routerLink]="['product-detail', convertToSlug(product.name)+'-p'+product.id]"
-                        class="mt-4 mb-1 text-darkgrey">{{product.name.length <= 40 ? product.name :
-                            product.name.substring(0, 40) + " ..." }}</h6>
-                            <div class="rate mb-3">
-                                <span class="fa fa-star checked text-warning small"></span>
-                                <span class="fa fa-star checked text-warning small"></span>
-                                <span class="fa fa-star checked text-warning small"></span>
-                                <span class="fa fa-star text-secondary small"></span>
-                                <span class="fa fa-star text-secondary small"></span>
-                            </div>
-                            <span
-                                class="badge badge-pill badge-danger pt-2 pb-2 pl-3 pr-3 mr-1">{{(product.price-product.discount.value).toLocaleString().replaceAll(",",
-                                ".")}} <u>đ</u></span>
-                            <span
-                                class="badge badge-pill badge-warning p-2 mr-1">-{{(100*product.discount.value/product.price)
-                                | number : '1.0-0'}}%</span>
-                            <s class="small" style="color: #8a8a8a;">{{product.price.toLocaleString().replaceAll(",",
-                                ".")}} <u>đ</u></s>
-
                 </div>
 
             </div>
-            <div class="d-flex justify-content-center mt-2">
+            <div class="d-flex justify-content-center mt-4">
                 <pagination-controls previousLabel="Trước" nextLabel="Sau" (pageChange)="currentPage = $event"
                     class="align-self-center"></pagination-controls>
             </div>

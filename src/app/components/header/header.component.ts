@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CategoryListRes } from 'src/app/commons/response/category';
+import { CategoryListRes } from 'src/app/commons/dto/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SearchReq } from 'src/app/commons/dto/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -16,16 +18,21 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
 
   categoryRes!: CategoryListRes;
+  searchReq: SearchReq = {
+    keyWord: ''
+  };
 
   constructor(
     public authService: AuthService,
     private modalService: NgbModal,
     private categoryService: CategoryService,
+    private productService: ProductService,
     public router: Router
   ) { }
 
   ngOnInit(): void {
     this.getDataCategory();
+    this.searchReq.keyWord = '';
   }
 
   getDataCategory() {

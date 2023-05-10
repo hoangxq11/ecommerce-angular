@@ -141,8 +141,8 @@
                                                     Sku: 6834262081089
                                                 </p>
                                                 <div class="product-review snipcss0-7-42-47">
-                                                    <span class="snipcss0-8-47-48">
-                                                        Chat với nhà bán
+                                                    <span (click)="onAssessment(productBill.id)" *ngIf="billData.status == 'DONE'" class="snipcss0-8-47-48">
+                                                        Đánh giá sản phẩm
                                                     </span>
                                                     <a [routerLink]="['/product-detail', convertToSlug(productBill.productDetail.productDto.name)+'-p'+productBill.productDetail.productDto.id]"
                                                         class="snipcss0-8-47-49">

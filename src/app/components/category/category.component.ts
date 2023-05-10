@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryListRes, CategoryRes } from 'src/app/commons/response/category';
-import { ProductRes } from 'src/app/commons/response/product';
+import { CategoryListRes, CategoryRes } from 'src/app/commons/dto/category';
+import { ProductListRes } from 'src/app/commons/dto/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -14,10 +14,10 @@ export class CategoryComponent implements OnInit{
 
   categoryRes!: CategoryRes;
   childCategoryRes!: CategoryListRes;
-  productRes!: ProductRes;
+  productRes!: ProductListRes;
 
   currentPage = 1;
-  pageSize = 8;
+  pageSize = 10;
   totalItems!: number;
 
   constructor(private categoryService: CategoryService, private productService: ProductService, private router: Router, private route: ActivatedRoute) { }

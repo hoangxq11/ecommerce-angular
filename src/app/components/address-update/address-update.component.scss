@@ -26,13 +26,6 @@ main {
 body {
     margin: 0px;
     overflow-x: hidden;
-    width: calc(100vw - var(--sub-sidebar-width) - 17px) !important;
-    min-width: calc(100vw - var(--sub-sidebar-width) - 17px) !important;
-    box-sizing: border-box !important;
-    margin-left: var(--sub-sidebar-width) !important;
-    margin-right: 0px !important;
-    float: right !important;
-    --sub-sidebar-width: 0px;
 }
 
 html {
@@ -41,7 +34,6 @@ html {
     background-color: rgb(245, 245, 250);
     line-height: 1.15;
     text-size-adjust: 100%;
-    --sub-sidebar-width: 0px;
 }
 
 .jXurFV {

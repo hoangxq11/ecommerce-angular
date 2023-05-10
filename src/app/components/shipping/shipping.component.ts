@@ -1,13 +1,14 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { AddressData, AddressReq, District, Province, Ward } from 'src/app/commons/response/address';
+import { AddressData, AddressReq, District, Province, Ward } from 'src/app/commons/dto/address';
 import { AddressService } from 'src/app/services/address.service';
 
 @Component({
   selector: 'app-shipping',
   templateUrl: './shipping.component.html',
-  styleUrls: ['./shipping.component.scss']
+  styleUrls: ['./shipping.component.scss'],
+  // encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ShippingComponent implements OnInit {
 

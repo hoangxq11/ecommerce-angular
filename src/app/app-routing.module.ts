@@ -14,6 +14,10 @@ import { AddressComponent } from './components/address/address.component';
 import { AddressUpdateComponent } from './components/address-update/address-update.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ReviewComponent } from './components/review/review.component';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
+import { AssessmentComponent } from './components/assessment/assessment.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,7 +30,12 @@ const routes: Routes = [
   { path: 'order/detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'address', component: AddressComponent, canActivate: [AuthGuard] },
   { path: 'shipping', component: ShippingComponent, canActivate: [AuthGuard] },
-  { path: 'address-update', component: AddressUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'review', component: ReviewComponent, canActivate: [AuthGuard] },
+  { path: 'search/:id', component: SearchComponent},
+  { path: 'assessment', component: AssessmentComponent, canActivate: [AuthGuard] },
+  { path: 'payment-info', component: PaymentInfoComponent, canActivate: [AuthGuard] },
+  { path: 'address/update/:id', component: AddressUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'address/create', component: AddressUpdateComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404' },

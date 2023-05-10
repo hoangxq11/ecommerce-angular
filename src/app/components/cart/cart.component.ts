@@ -1,13 +1,14 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { ListProductCartRes, ProductCartData, ProductCartUpdateReq } from 'src/app/commons/response/cart';
+import { ListProductCartRes, ProductCartData, ProductCartUpdateReq } from 'src/app/commons/dto/cart';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class CartComponent implements OnInit {
 

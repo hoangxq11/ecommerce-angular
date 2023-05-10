@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JwtData } from './../commons/response/jwt-response';
+import { JwtData } from '../commons/dto/jwt-response';
 
 @Injectable({
   providedIn: 'root'

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,11 @@ import { ShippingComponent } from './components/shipping/shipping.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ReviewComponent } from './components/review/review.component';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
+import { AssessmentComponent } from './components/assessment/assessment.component';
+import { SearchComponent } from './components/search/search.component';
+import { AssessmentModalComponent } from './components/assessment-modal/assessment-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,12 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     AddressComponent,
     AddressUpdateComponent,
     ShippingComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    ReviewComponent,
+    PaymentInfoComponent,
+    AssessmentComponent,
+    SearchComponent,
+    AssessmentModalComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +71,8 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbRatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

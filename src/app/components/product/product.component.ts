@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CartReq } from 'src/app/commons/response/cart';
-import { ColorData, ListProductDetailRes, SizeData } from 'src/app/commons/response/product';
+import { CartReq } from 'src/app/commons/dto/cart';
+import { ColorData, ListProductDetailRes, SizeData } from 'src/app/commons/dto/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';

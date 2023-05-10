@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryListRes } from '../commons/response/category';
-import { SearchSpecRes } from '../commons/response/search';
+import { CategoryListRes } from '../commons/dto/category';
+import { SearchSpecRes } from '../commons/dto/search';
 
 @Injectable({
   providedIn: 'root'

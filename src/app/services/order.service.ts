@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BillListRes, BillReq, BillRes } from '../commons/response/order';
-import { BaseResponse } from '../commons/response/response';
+import { BillListRes, BillReq, BillRes } from '../commons/dto/order';
+import { BaseResponse } from '../commons/dto/response';
 import { AuthService } from './auth.service';
 
 @Injectable({

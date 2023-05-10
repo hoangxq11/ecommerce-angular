@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountLogin } from '../commons/account-login';
-import { JwtResponse } from './../commons/response/jwt-response';
+import { JwtResponse } from '../commons/dto/jwt-response';
 import { AuthService } from './auth.service';
-import { AccountRegister } from '../commons/response/account';
-import { BaseResponse } from '../commons/response/response';
+import { AccountRegister } from '../commons/dto/account';
+import { BaseResponse } from '../commons/dto/response';
 
 @Injectable({
   providedIn: 'root'

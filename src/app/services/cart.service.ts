@@ -1,7 +1,7 @@
-import { CartReq, ListProductCartRes, ProductCartRes, ProductCartUpdateReq } from './../commons/response/cart';
+import { CartReq, ListProductCartRes, ProductCartRes, ProductCartUpdateReq } from '../commons/dto/cart';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseResponse } from '../commons/response/response';
+import { BaseResponse } from '../commons/dto/response';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 

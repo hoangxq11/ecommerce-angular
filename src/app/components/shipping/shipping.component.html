@@ -1,4 +1,4 @@
-<div class="Container-sc-itwfbd-0 hfMLFx snipcss-d7k2h style-rnDEn" id="style-rnDEn">
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-d7k2h style-rnDEn pb-4" id="style-rnDEn">
     <div class="AddressList__StyledAddressList-sc-lm7k31-0 jQjVjo">
         <h3 class="title">
             Địa chỉ giao hàng
@@ -12,7 +12,7 @@
                     {{addressData.fullName}}
                 </p>
                 <p class="address">
-                    Địa chỉ: {{addressData.content + ", " + addressData.ward + ", " 
+                    Địa chỉ: {{addressData.content + ", " + addressData.ward + ", "
                     + addressData.district + ", " + addressData.province}}
                 </p>
                 <p class="address">
@@ -72,28 +72,11 @@
                         <div class="rc-select-selection
                           rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
                             aria-controls="d8b40762-68bb-4e03-cb7d-5def22f60592" aria-expanded="false" tabindex="0">
-                            <!-- <div class="rc-select-selection__rendered">
-                                <div unselectable="on" class="rc-select-selection__placeholder style-pEtEQ"
-                                    id="style-pEtEQ">
-                                    Chọn Tỉnh/Thành phố
-                                </div>
-                                <div class="rc-select-search rc-select-search--inline style-r9Hc2" id="style-r9Hc2">
-                                    <div class="rc-select-search__field__wrap">
-                                        <input autocomplete="off" class="rc-select-search__field" value="">
-                                        <span class="rc-select-search__field__mirror">
-                                            &nbsp;
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> -->
+
                             <select id="city" (change)="onChangeProvince($event.target)">
                                 <option value="" selected>Chọn tỉnh thành</option>
                                 <option [value]="item.code" *ngFor="let item of provinces">{{item.name}}</option>
                             </select>
-                            <span class="rc-select-arrow style-3LBgg" unselectable="on" id="style-3LBgg">
-                                <i class="rc-select-arrow-icon">
-                                </i>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -107,28 +90,10 @@
                         <div class="rc-select-selection
                           rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
                             aria-controls="700514cf-feb6-4e4b-f6c0-3d5fd526a304" aria-expanded="false" tabindex="0">
-                            <!-- <div class="rc-select-selection__rendered">
-                                <div unselectable="on" class="rc-select-selection__placeholder style-EvnRt"
-                                    id="style-EvnRt">
-                                    Chọn Quận/Huyện
-                                </div>
-                                <div class="rc-select-search rc-select-search--inline style-3mLlI" id="style-3mLlI">
-                                    <div class="rc-select-search__field__wrap">
-                                        <input autocomplete="off" class="rc-select-search__field" value="">
-                                        <span class="rc-select-search__field__mirror">
-                                            &nbsp;
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> -->
                             <select (change)="onChangeDistrict($event.target)">
                                 <option value="" selected>Chọn Quận/Huyện</option>
                                 <option [value]="item.code" *ngFor="let item of districts">{{item.name}}</option>
                             </select>
-                            <span class="rc-select-arrow style-nSh3c" unselectable="on" id="style-nSh3c">
-                                <i class="rc-select-arrow-icon">
-                                </i>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -142,28 +107,11 @@
                         <div class="rc-select-selection
                           rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
                             aria-controls="4c20253a-21f5-4d37-f789-9b7732eecd0e" aria-expanded="false" tabindex="0">
-                            <!-- <div class="rc-select-selection__rendered">
-                                <div unselectable="on" class="rc-select-selection__placeholder style-nIOQ7"
-                                    id="style-nIOQ7">
-                                    Chọn Phường/Xã
-                                </div>
-                                <div class="rc-select-search rc-select-search--inline style-4kZAb" id="style-4kZAb">
-                                    <div class="rc-select-search__field__wrap">
-                                        <input autocomplete="off" class="rc-select-search__field" value="">
-                                        <span class="rc-select-search__field__mirror">
-                                            &nbsp;
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> -->
+                            
                             <select (change)="onChangeWard($event.target)">
                                 <option value="" selected>Chọn Phường/Xã</option>
                                 <option [value]="item.code" *ngFor="let item of wards">{{item.name}}</option>
                             </select>
-                            <span class="rc-select-arrow style-BzXL7" unselectable="on" id="style-BzXL7">
-                                <i class="rc-select-arrow-icon">
-                                </i>
-                            </span>
                         </div>
                     </div>
                 </div>

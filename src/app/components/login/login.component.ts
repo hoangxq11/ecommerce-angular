@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AccountLogin } from 'src/app/commons/account-login';
-import { JwtResponse } from 'src/app/commons/response/jwt-response';
+import { JwtResponse } from 'src/app/commons/dto/jwt-response';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.toastr.success('Đăng nhập thành công', '', {
           timeOut: 3000,
         });
+        location.reload();
       },
       (error) => {
         this.toastr.error('Tên đăng nhập hoặc mật khẩu không chính xác', '', {

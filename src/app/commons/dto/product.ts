@@ -3,7 +3,7 @@ import { BaseResponse } from "./response";
 import { CategoryData } from "./category";
 import { ImageRes } from "./image";
 
-export class ProductRes implements BaseResponse {
+export class ProductListRes implements BaseResponse {
     message!: string;
     data!: ProductData[];
 }
@@ -65,4 +65,8 @@ export class SizeData {
 export class ColorData {
     id!: number;
     name!: string;
+}
+
+export class SearchReq {
+    keyWord!: string;
 }

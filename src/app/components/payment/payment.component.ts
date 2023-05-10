@@ -1,12 +1,12 @@
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AddressData } from 'src/app/commons/response/address';
-import { ListProductCartRes, ProductCartData } from 'src/app/commons/response/cart';
+import { AddressData } from 'src/app/commons/dto/address';
+import { ListProductCartRes, ProductCartData } from 'src/app/commons/dto/cart';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
-import { BillReq } from './../../commons/response/order';
+import { BillReq } from '../../commons/dto/order';
 
 @Component({
   selector: 'app-payment',
